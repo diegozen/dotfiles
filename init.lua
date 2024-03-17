@@ -18,3 +18,9 @@ vim.opt.rtp:prepend(lazypath)
 require("vim-options")
 -- This line loads lua/plugins/ files
 require("lazy").setup("plugins")
+
+-- Toggle Terminal
+vim.api.nvim_set_keymap('n', '<Leader>t', ':ToggleTerm<CR>', { noremap = true })
+vim.api.nvim_set_keymap('t', '<esc>', [[<C-\><C-n>]], { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>w', [[<C-w>]], { noremap = true })
+
