@@ -5,5 +5,6 @@ vim.cmd("set shiftwidth=2")
 vim.cmd("set relativenumber")
 vim.cmd("set number")
 vim.cmd("set signcolumn=yes:1")
+vim.cmd("set clipboard+=unnamedplus")
 vim.g.mapleader = " "
 
