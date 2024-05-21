@@ -6,5 +6,8 @@ vim.cmd("set relativenumber")
 vim.cmd("set number")
 vim.cmd("set signcolumn=yes:1")
 vim.cmd("set clipboard+=unnamedplus")
+vim.cmd("set linebreak")
+
 vim.g.mapleader = " "
+vim.g.tidal_target = "terminal"
 
