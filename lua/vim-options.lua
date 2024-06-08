@@ -10,4 +10,3 @@ vim.cmd("set linebreak")
 
 vim.g.mapleader = " "
 vim.g.tidal_target = "terminal"
-

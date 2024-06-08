@@ -34,7 +34,39 @@ vim.api.nvim_create_autocmd('BufEnter', {
     pattern = vim.fn.expand('*/docs/vaults/*'),
     callback = function()
         vim.cmd("set filetype=markdown")
-        vim.cmd("set syntax=telekasten")
+--        vim.cmd("set syntax=telekasten")
     end
 })
 
+-- Treesitter markdown format internal links
+-- Define the custom highlight group
+vim.cmd [[
+  highlight InternalLink guifg=LightMagenta
+  highlight CodeBlock guibg=NONE
+  highlight InlineCode guifg=#ff9999
+  highlight LineNr guibg=#aaaaaa guifg=#ffffff
+]]
+
+-- Link the Treesitter highlight group to the custom highlight group
+vim.api.nvim_set_hl(0, 'TSTag', { link = 'InternalLink' })
+vim.api.nvim_set_hl(0, 'TSTag', { link = 'CodeBlock' })
+vim.api.nvim_set_hl(0, 'TSTag', { link = 'InlineCode' })
+
+-- Set conceal level and character, and enable conceal for Markdown files
+vim.opt.conceallevel = 2
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.cmd [[
+      syntax region InlineCode start=/`/ end=/`/
+      syntax region CodeBlock start=/```/ end=/```/
+      syntax match InternalLink /\[\[.\{-}\]\]/ contains=InternalLinkText containedin=ALLBUT,InlineCode,CodeBlock
+      syntax region InternalLinkText matchgroup=InternalLink start=/\[\[/ end=/\]\]/ concealends contained
+    ]]
+    vim.cmd [[
+      highlight link InternalLinkText InternalLink
+      " highlight default CodeBlock ColorColumn
+    ]]
+  end,
+})

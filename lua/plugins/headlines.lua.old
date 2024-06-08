@@ -1,0 +1,13 @@
+-- Con este plugin consigo que el fondo del bloque de código se vea con cierto margen que permite que se lea bien.
+return {
+	"lukas-reineke/headlines.nvim",
+	dependencies = "nvim-treesitter/nvim-treesitter",
+	config = function()
+		require("headlines").setup({
+			markdown = {
+				headline_highlights = false,
+        quote_highlight = false
+			},
+		})
+	end,
+}
